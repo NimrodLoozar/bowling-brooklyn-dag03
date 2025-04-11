@@ -21,4 +21,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
+// Martijn
+Route::get('/reserveringen', [App\Http\Controllers\ReserveringController::class, 'index'])->name('reserveringen.index');
+Route::get('/reserveringen/{reservering}/edit', [App\Http\Controllers\ReserveringController::class, 'edit'])->name('reserveringen.edit');
+Route::put('/reserveringen/{reservering}', [App\Http\Controllers\ReserveringController::class, 'update'])->name('reserveringen.update');
+
+
 require __DIR__.'/auth.php';
