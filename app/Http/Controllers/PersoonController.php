@@ -50,7 +50,22 @@ class PersoonController extends Controller
     public function update(Request $request, $id)
     {
         $persoon = Persoon::findOrFail($id);
-        $persoon->update($request->all());
+
+        // Convert checkbox values to boolean
+        $data = $request->only([
+            'voornaam',
+            'tussenvoegsel',
+            'achternaam',
+        ]);
+        $data['is_volwassen'] = $request->has('is_volwassen') ? 1 : 0;
+
+        // Update Persoon fields
+        $persoon->update($data);
+
+        // Update Contact fields if they exist in the request
+        if ($persoon->contact) {
+            $persoon->contact->update($request->only(['email', 'mobiel']));
+        }
 
         return redirect()->route('personen.index')->with('success', 'Klantgegevens succesvol bijgewerkt.');
     }

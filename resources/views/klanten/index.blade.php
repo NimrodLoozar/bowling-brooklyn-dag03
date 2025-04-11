@@ -31,9 +31,7 @@
                 <th class="border border-gray-300 px-4 py-2">Email</th>
                 <th class="border border-gray-300 px-4 py-2">Mobiel</th>
                 <th class="border border-gray-300 px-4 py-2">Volwassen</th>
-                <th class="border border-gray-300 px-4 py-2">Actief</th>
-                <th class="border border-gray-300 px-4 py-2">Opmerking</th>
-                <th class="border border-gray-300 px-4 py-2">Acties</th> <!-- New column for actions -->
+                <th class="border border-gray-300 px-4 py-2">Acties</th> <!-- Adjusted column for actions -->
             </tr>
         </thead>
         <tbody>
@@ -44,8 +42,6 @@
                     <td class="border border-gray-300 px-4 py-2">{{ $persoon->contact->email ?? 'Geen email' }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $persoon->contact->mobiel ?? 'Geen mobiel' }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $persoon->is_volwassen ? 'Ja' : 'Nee' }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $persoon->is_active ? 'Ja' : 'Nee' }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $persoon->opmerking ?? 'Geen opmerking' }}</td>
                     <td class="border border-gray-300 px-4 py-2 text-center">
                         <a href="{{ route('personen.edit', $persoon->id) }}" class="text-blue-500 hover:text-blue-600">
                             <!-- Heroicons pencil icon -->
@@ -58,7 +54,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td colspan="7" class="border border-gray-300 px-4 py-2 text-center">
+                    <td colspan="5" class="border border-gray-300 px-4 py-2 text-center">
                         @if(request('search_date'))
                             Geen informatie gevonden voor deze datum.
                         @else
