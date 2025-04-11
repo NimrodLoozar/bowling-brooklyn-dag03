@@ -31,4 +31,8 @@ class Reservation extends Model
     {
         return $this->belongsTo(PackageOption::class, 'PakketOptieId', 'Id');
     }
+    public function person()
+    {
+        return $this->belongsTo(Person::class, 'PersoonId', 'Id');
+    }
 }
