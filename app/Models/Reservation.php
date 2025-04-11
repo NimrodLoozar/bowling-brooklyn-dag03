@@ -2,10 +2,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\packageOption;
 
-class Reservering extends Model
+class Reservation extends Model
 {
-    protected $table = 'reservering';
+    protected $table = 'Reservations';
+    protected $primaryKey = 'Id'; // Added line
+
 
     protected $fillable = [
         'PersoonId',

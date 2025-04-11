@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReserveringController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -22,9 +24,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Martijn
-Route::get('/reserveringen', [App\Http\Controllers\ReserveringController::class, 'index'])->name('reserveringen.index');
-Route::get('/reserveringen/{reservering}/edit', [App\Http\Controllers\ReserveringController::class, 'edit'])->name('reserveringen.edit');
-Route::put('/reserveringen/{reservering}', [App\Http\Controllers\ReserveringController::class, 'update'])->name('reserveringen.update');
+Route::get('reservations', [App\Http\Controllers\ReservationController::class, 'index'])->name('reservations.index');
+Route::get('reservations/{reservation}/edit', [App\Http\Controllers\ReservationController::class, 'edit'])->name('reservations.edit');
+Route::put('reservations/{reservation}', [App\Http\Controllers\ReservationController::class, 'update'])->name('reservations.update');
 
 
 require __DIR__.'/auth.php';

@@ -1,17 +1,25 @@
 <x-layouts.app>
     <div class="min-h-screen bg-gray-900 text-white p-6">
-        <h1 class="text-2xl font-bold mb-6">Wijzig Pakketoptie voor Reservering #{{ $reservering->id }}</h1>
+        <h1>Edit Package Option for Reservation #{{ $reservation->id }}</h1>
 
-        <form method="POST" action="{{ route('reserveringen.update', $reservering) }}" class="space-y-6">
+        {{-- Error Message --}}
+        @if (session('error'))
+            <div class="bg-red-500 text-white p-4 mb-4 rounded">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('reservations.update', $reservation) }}" class="space-y-6">
             @csrf
             @method('PUT')
 
             <div>
                 <label for="PakketOptieId" class="block mb-2 font-semibold">Kies een nieuw optiepakket</label>
                 <select name="PakketOptieId" id="PakketOptieId" class="bg-gray-800 text-white p-2 rounded w-full">
-                    @foreach ($pakketopties as $optie)
-                        <option value="{{ $optie->id }}" {{ $reservering->PakketOptieId == $optie->id ? 'selected' : '' }}>
-                            {{ $optie->Naam }}
+                    @foreach ($packageOptions as $option)
+                        <option value="{{ $option->id }}" 
+                            {{ $reservation->PakketOptieId == $option->id ? 'selected' : '' }}>
+                            {{ $option->Naam }}
                         </option>
                     @endforeach
                 </select>
