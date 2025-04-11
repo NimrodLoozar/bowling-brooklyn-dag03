@@ -25,5 +25,6 @@ Route::middleware(['auth'])->group(function () {
 Route::resource('personen', PersoonController::class);
 
 Route::get('personen/overzicht', [PersoonController::class, 'index'])->name('personen.overzicht');
+Route::get('personen/{id}/edit', [PersoonController::class, 'edit'])->name('personen.edit');
 
 require __DIR__.'/auth.php';

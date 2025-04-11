@@ -2,6 +2,17 @@
 
 @section('content')
 <div class="container mx-auto p-4">
+    @if(session('success'))
+        <div id="flash-message" class="bg-green-500 text-white text-center py-2 rounded mb-4">
+            {{ session('success') }}
+        </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById('flash-message').remove();
+            }, 5000); // Remove the message after 5 seconds
+        </script>
+    @endif
+
     <h1 class="text-2xl font-bold mb-4">Overzicht Klanten</h1>
 
     <!-- Search Form -->
