@@ -134,6 +134,40 @@ class ReservationController extends Controller
         return redirect()->route('reservations.index')->with('success', __('Reservering succesvol bijgewerkt.'));
     }
 
+    
+    public function showResults()
+    {
+        return view('results.index');
+    }
+
+    public function handleResultsRequest(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date'
+        ]);
+
+        $date = $request->input('date');
+
+        // Fetch results for the selected date
+        $results = Result::select('Results.*')
+            ->join('Games', 'Results.SpelId', '=', 'Games.Id')
+            ->join('Reservations', 'Games.ReserveringId', '=', 'Reservations.Id')
+            ->join('People', 'Games.PersoonId', '=', 'People.Id')
+            ->whereDate('Reservations.Datum', $date)
+            ->orderByDesc('Results.Aantalpunten')
+            ->get();
+
+        if ($results->isEmpty()) {
+            return redirect()->route('results.show')
+                ->with('error', 'Er is geen uitslag beschikbaar voor deze geselecteerde datum');
+        }
+
+        return view('results.index', [
+            'results' => $results,
+            'selectedDate' => $date
+        ]);
+    }
+    
     public function destroy($id)
     {
         // Logic to delete the reservation
