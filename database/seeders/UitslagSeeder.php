@@ -17,7 +17,6 @@ class UitslagSeeder extends Seeder
             ['id' => 5, 'spel_id' => 5, 'aantalpunten' => null], // Gast: Tom Sanders
             ['id' => 6, 'spel_id' => 6, 'aantalpunten' => 234], // Gast: Andrew Sanders
             ['id' => 7, 'spel_id' => 7, 'aantalpunten' => 299], // Gast: Julian Kaldenheuvel
-            ['id' => 8, 'spel_id' => 8, 'aantalpunten' => 150], // Wilco (Medewerker)
         ]);
     }
 }
