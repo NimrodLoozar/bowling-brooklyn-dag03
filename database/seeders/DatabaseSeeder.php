@@ -13,14 +13,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call([
-            PersoonSeeder::class,
-            ReserveringSeeder::class,
-            SpelSeeder::class,
-            UitslagSeeder::class,
-            AdminSeeder::class,
-            'password' => bcrypt('password')
-        ]);
+       
+   
 
         User::factory()->create([
             'name' => 'Admin',
@@ -54,6 +48,10 @@ class DatabaseSeeder extends Seeder
         Lane::factory()->Lane8()->create();
 
             $this->call([
+                PersoonSeeder::class,
+            ReserveringSeeder::class,
+            SpelSeeder::class,
+            UitslagSeeder::class,
                 PackageOptionsTableSeeder::class,
                 GamesTableSeeder::class,
                 ResultsTableSeeder::class,
