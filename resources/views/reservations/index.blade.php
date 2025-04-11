@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <div class="mb-4">
+    <div class="mb-4 flex justify-between items-center">
         <form method="GET" action="{{ route('reservations.index') }}" class="flex items-center gap-4">
             <input type="date" name="selectedDate" value="{{ $selectedDate }}"
                 class="form-input hover:border-gray-300 focus:border-green-500 focus:ring focus:ring-green-200 focus:ring-opacity-50 rounded-md shadow-sm" />
