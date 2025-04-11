@@ -54,5 +54,11 @@ class DatabaseSeeder extends Seeder
         Lane::factory()->Lane6()->create();
         Lane::factory()->Lane7()->create();
         Lane::factory()->Lane8()->create();
-    }
+
+            $this->call([
+                PackageOptionsTableSeeder::class,
+                GamesTableSeeder::class,
+                ResultsTableSeeder::class,
+            ]);
+        }
 }
