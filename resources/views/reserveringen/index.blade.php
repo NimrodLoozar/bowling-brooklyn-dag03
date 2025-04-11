@@ -2,6 +2,12 @@
     <div class="min-h-screen bg-gray-900 text-white px-6 py-10">
         <h1 class="text-3xl font-bold mb-6 text-center">Overzicht Reserveringen</h1>
 
+        @if (session('success'))
+            <div class="mb-4 bg-green-500 text-white p-3 rounded shadow">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="overflow-x-auto">
             <table class="w-full table-auto border-collapse rounded-lg overflow-hidden shadow-lg bg-gray-800">
                 <thead class="bg-gray-700 text-gray-300 uppercase text-sm tracking-wider">
