@@ -1,6 +1,12 @@
 <x-layouts.app :title="__('Reserveringen Overzicht')">
     <div class="container mx-auto p-4">
-        <h1 class="text-2xl font-bold mb-4">Reserveringen van Mazin Jamil</h1>
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <h1 class="text-2xl font-bold mb-4">Reservering Overzichth</h1>
         
         <form method="GET" action="{{ route('uitslagen.index') }}" class="mb-4 flex items-center gap-2">
             <label for="datum" class="font-medium">Datum:</label>

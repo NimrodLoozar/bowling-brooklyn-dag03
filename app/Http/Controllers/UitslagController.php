@@ -48,10 +48,12 @@ class UitslagController extends Controller
         ->orderBy('aantalpunten', 'desc')
         ->get();
 
+        $reservering = Reservering::with('persoon')->findOrFail($reserveringId);
+
         if ($uitslagen->isEmpty()) {
-            return redirect()->route('uitslagen.index')->with('error', 'Er zijn geen uitslagen bekend voor deze reservering.');
+            return redirect()->route('uitslagen.index')->with('error', 'Van de geselecteerde reservering zijn geen uitslagen bekend.');
         }
 
-        return view('uitslagen.show', compact('uitslagen'));
+        return view('uitslagen.show', compact('uitslagen', 'reservering'));
     }
 }
