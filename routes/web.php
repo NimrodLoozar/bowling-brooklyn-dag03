@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\ReserveringController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
