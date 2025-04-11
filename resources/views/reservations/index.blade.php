@@ -41,7 +41,8 @@
         <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
             <table class="min-w-full table-auto">
                 <thead>
-                    <tr class="bg-gray-100 text-gray-800 uppercase text-sm font-medium leading-normal">
+                    <tr
+                        class="bg-gray-100 text-gray-800 dark:bg-transparent dark:text-white uppercase text-sm font-medium leading-normal">
                         <th class="py-4 px-6">{{ __('Naam') }}</th>
                         <th class="py-4 px-6">{{ __('Datum') }}</th>
                         <th class="py-4 px-6">{{ __('Aantal uren') }}</th>
@@ -51,9 +52,9 @@
                         <th class="py-4 px-6">{{ __('Aantal kinderen') }}</th>
                     </tr>
                 </thead>
-                <tbody class="text-gray-800 text-sm font-light">
+                <tbody class="text-gray-800 dark:text-white text-sm font-light bg-transparent">
                     @foreach ($reservations as $reservation)
-                        <tr class="border-b border-red-500 text-center hover:bg-gray-50">
+                        <tr class="border-b border-red-500 text-center">
                             <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->roepnaam }}</td>
                             <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->datum }}</td>
                             <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantaluren }}</td>

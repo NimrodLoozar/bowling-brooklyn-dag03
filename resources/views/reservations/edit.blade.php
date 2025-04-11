@@ -19,7 +19,8 @@
             <label for="lane_number">Baannummer:</label>
             <select class="border-black bg-gray-500" name="lane_number" id="lane_number">
                 @foreach ($lanes as $lane)
-                    <option value="{{ $lane->Nummer }}" {{ $lane->Nummer == $reservation->BaanId ? 'selected' : '' }}>
+                    <option class="dark:text-black" value="{{ $lane->Nummer }}"
+                        {{ $lane->Nummer == $reservation->BaanId ? 'selected' : '' }}>
                         {{ $lane->Nummer }} {{ $lane->HeeftHek ? '(Hekjes voor kinderen)' : '' }}
                     </option>
                 @endforeach
