@@ -13,7 +13,7 @@ class TypePersoonSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('type_persoon')->insert([
+        DB::table('type_people')->insert([
             ['Id' => 1, 'Naam' => 'Klant'],
             ['Id' => 2, 'Naam' => 'Medewerker'],
             ['Id' => 3, 'Naam' => 'Gast'],

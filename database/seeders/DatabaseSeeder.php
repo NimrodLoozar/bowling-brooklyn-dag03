@@ -55,6 +55,9 @@ class DatabaseSeeder extends Seeder
                 PackageOptionsTableSeeder::class,
                 GamesTableSeeder::class,
                 ResultsTableSeeder::class,
+
+                TypePersoonSeeder::class,
+            ContactSeeder::class,
             ]);
         }
 }

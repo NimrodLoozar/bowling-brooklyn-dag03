@@ -69,7 +69,8 @@ class ReservationController extends Controller
                 'reservations.AantalVolwassen as volwassenen',
                 'reservations.AantalKinderen as kinderen',
                 'lanes.Nummer as baan',
-                'people.Roepnaam as roepnaam'
+                'people.Roepnaam as roepnaam',
+                'people.Voornaam as voornaam',
             )
             ->orderBy('reservations.datum', 'desc')
             ->get();

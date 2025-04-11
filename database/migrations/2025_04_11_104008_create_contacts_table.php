@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('persoon_id');
+            $table->foreignId('PersoonId')->constrained('people')->onDelete('cascade');
             $table->string('mobiel', 20)->nullable();
             $table->string('email', 255)->nullable();
             $table->boolean('is_active');
@@ -22,7 +22,6 @@ return new class extends Migration
             $table->dateTime('datum_gewijzigd');
             $table->timestamps();
 
-            $table->foreign('persoon_id')->references('id')->on('persoons');
         });
     }
 

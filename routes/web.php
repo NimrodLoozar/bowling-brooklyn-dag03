@@ -39,4 +39,8 @@ Route::put('reserveringen/{id}', [ReservationController::class, 'update'])->name
 Route::get('results', [ReservationController::class, 'showResults'])->name('results.show');
 Route::post('results', [ReservationController::class, 'handleResultsRequest'])->name('results.filter');
 
+Route::resource('personen', PersoonController::class);
+Route::get('personen/overzicht', [PersoonController::class, 'index'])->name('personen.overzicht');
+Route::get('personen/{id}/edit', [PersoonController::class, 'edit'])->name('personen.edit');
+
 require __DIR__ . '/auth.php';
