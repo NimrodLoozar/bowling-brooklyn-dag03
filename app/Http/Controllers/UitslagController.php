@@ -30,30 +30,37 @@ class UitslagController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'aantalpunten' => 'required|integer',
+            'aantalpunten' => 'required|integer|max:300',
+        ], [
+            'aantalpunten.max' => 'Het aantal punten is niet geldig, voer een waarde in kleiner of gelijk aan 300.',
         ]);
 
         $uitslag = Uitslag::findOrFail($id);
         $uitslag->update($request->only('aantalpunten'));
 
-        return redirect()->route('uitslagen.index')->with('success', 'Uitslag bijgewerkt.');
+        return redirect()->route('uitslagen.show', $uitslag->spel->reservering_id)
+            ->with('success', 'Aantal punten is gewijzigd.');
     }
 
     public function show($reserveringId)
     {
-        $uitslagen = Uitslag::whereHas('spel', function ($query) use ($reserveringId) {
-            $query->where('reservering_id', $reserveringId);
-        })
-        ->with('spel.persoon')
-        ->orderBy('aantalpunten', 'desc')
-        ->get();
+        try {
+            $uitslagen = Uitslag::whereHas('spel', function ($query) use ($reserveringId) {
+                $query->where('reservering_id', $reserveringId);
+            })
+            ->with('spel.persoon')
+            ->orderBy('aantalpunten', 'desc')
+            ->get();
 
-        $reservering = Reservering::with('persoon')->findOrFail($reserveringId);
+            $reservering = Reservering::with('persoon')->findOrFail($reserveringId);
 
-        if ($uitslagen->isEmpty()) {
-            return redirect()->route('uitslagen.index')->with('error', 'Van de geselecteerde reservering zijn geen uitslagen bekend.');
+            if ($uitslagen->isEmpty()) {
+                throw new \Exception('Van de geselecteerde reservering zijn geen uitslagen bekend.');
+            }
+
+            return view('uitslagen.show', compact('uitslagen', 'reservering'));
+        } catch (\Exception $e) {
+            return redirect()->route('uitslagen.index')->with('error', $e->getMessage());
         }
-
-        return view('uitslagen.show', compact('uitslagen', 'reservering'));
     }
 }

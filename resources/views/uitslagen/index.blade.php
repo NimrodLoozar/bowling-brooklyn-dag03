@@ -6,7 +6,7 @@
             </div>
         @endif
 
-        <h1 class="text-2xl font-bold mb-4">Reservering Overzichth</h1>
+        <h1 class="text-2xl font-bold mb-4">Uitslagen Overzicht</h1>
         
         <form method="GET" action="{{ route('uitslagen.index') }}" class="mb-4 flex items-center gap-2">
             <label for="datum" class="font-medium">Datum:</label>
