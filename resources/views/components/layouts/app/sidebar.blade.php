@@ -21,12 +21,12 @@
                     >{{ __('Dashboard') }}</flux:navlist.item>
                     <flux:navlist.item icon="calendar" :href="route('reservations.index')" :current="request()->routeIs('reservations.*')" wire:navigate>{{ __('Reservations') }}</flux:navlist.item>
                     
-                    <flux:navlist.item 
+                    {{-- <flux:navlist.item 
                         icon="calendar" 
                         :href="route('reservations.index')" 
                         :current="request()->routeIs('reservations.*')" 
                         wire:navigate
-                    >{{ __('Reserveringen') }}</flux:navlist.item>
+                    >{{ __('Reserveringen') }}</flux:navlist.item> --}}
                     
                     <flux:navlist.item 
                         icon="chart-bar" 

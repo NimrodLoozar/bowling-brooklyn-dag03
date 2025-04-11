@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Reservation;
 use App\Models\PackageOption;
-use Illuminate\Http\Request;
 use App\Models\Result;
 
 class ReservationController extends Controller

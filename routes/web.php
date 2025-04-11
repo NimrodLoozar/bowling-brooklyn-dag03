@@ -23,10 +23,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Martijn
-Route::get('reservations', [ReservationController::class, 'index'])->name('reservations.index');
-Route::get('reservations/{reservation}', [ReservationController::class, 'show'])->name('reservations.show');
-Route::get('reservations/{reservation}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
-Route::put('reservations/{reservation}', [ReservationController::class, 'update'])->name('reservations.update');
+Route::get('reserveringen', [ReservationController::class, 'index'])->name('reservations.index');
+Route::get('reserveringen/wijzegingen', [ReservationController::class, 'show'])->name('reservations.show');
+Route::get('reserveringen/{id}/bewerking', [ReservationController::class, 'edit'])->name('reservations.edit');
+Route::put('reserveringen/{id}', [ReservationController::class, 'update'])->name('reservations.update');
 
 // Results Overview
 Route::get('results', [ReservationController::class, 'showResults'])->name('results.show');
