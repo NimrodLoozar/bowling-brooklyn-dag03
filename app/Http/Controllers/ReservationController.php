@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use App\Models\PackageOption;
 use Illuminate\Http\Request;
+use App\Models\Result;
 
 class ReservationController extends Controller
 {
@@ -22,6 +23,40 @@ class ReservationController extends Controller
     {
         $packageOptions = PackageOption::all();
         return view('reservations.edit', compact('reservation', 'packageOptions'));
+    }
+
+
+    public function showResults()
+    {
+        return view('results.index');
+    }
+
+    public function handleResultsRequest(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date'
+        ]);
+
+        $date = $request->input('date');
+
+        // Fetch results for the selected date
+        $results = Result::select('Results.*')
+            ->join('Games', 'Results.SpelId', '=', 'Games.Id')
+            ->join('Reservations', 'Games.ReserveringId', '=', 'Reservations.Id')
+            ->join('People', 'Games.PersoonId', '=', 'People.Id')
+            ->whereDate('Reservations.Datum', $date)
+            ->orderByDesc('Results.Aantalpunten')
+            ->get();
+
+        if ($results->isEmpty()) {
+            return redirect()->route('results.show')
+                ->with('error', 'Er is geen uitslag beschikbaar voor deze geselecteerde datum');
+        }
+
+        return view('results.index', [
+            'results' => $results,
+            'selectedDate' => $date
+        ]);
     }
 
     public function update(Request $request, Reservation $reservation)

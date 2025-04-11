@@ -29,4 +29,8 @@ Route::get('reservations/{reservation}', [ReservationController::class, 'show'])
 Route::get('reservations/{reservation}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
 Route::put('reservations/{reservation}', [ReservationController::class, 'update'])->name('reservations.update');
 
+// Results Overview
+Route::get('results', [ReservationController::class, 'showResults'])->name('results.show');
+Route::post('results', [ReservationController::class, 'handleResultsRequest'])->name('results.filter');
+
 require __DIR__.'/auth.php';
