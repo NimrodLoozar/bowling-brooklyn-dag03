@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 
     Route::get('reserveringen', [ReservationController::class, 'index'])->name('reservations.index');
+    Route::get('reserveringen/wijzigen', [ReservationController::class, 'show'])->name('reservations.show');
     Route::get('reserveringen/{id}/bewerking', [ReservationController::class, 'edit'])->name('reservations.edit');
     Route::put('reserveringen/{id}', [ReservationController::class, 'update'])->name('reservations.update');
 });

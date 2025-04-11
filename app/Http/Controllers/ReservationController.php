@@ -55,26 +55,31 @@ class ReservationController extends Controller
         return redirect()->route('reservations.index');
     }
 
-    public function show($id)
+    public function show()
     {
-        return view('reservations.show', compact('id'));
+        $reservations = DB::table('reservations')
+            ->join('people', 'reservations.PersoonId', '=', 'people.id')
+            ->join('lanes', 'reservations.BaanId', '=', 'lanes.Nummer')
+            ->select(
+                'reservations.id',
+                'reservations.datum',
+                'reservations.AantalVolwassen as volwassenen',
+                'reservations.AantalKinderen as kinderen',
+                'lanes.Nummer as baan',
+                'people.Roepnaam as roepnaam'
+            )
+            ->orderBy('reservations.datum', 'desc')
+            ->get();
+
+        return view('reservations.show', compact('reservations'));
     }
 
     public function edit($id)
     {
         $reservation = DB::table('reservations')->where('id', $id)->first();
 
-        // Hardcoded lanes
-        $lanes = [
-            ['number' => 1, 'is_kids_friendly' => true],
-            ['number' => 2, 'is_kids_friendly' => false],
-            ['number' => 3, 'is_kids_friendly' => true],
-            ['number' => 4, 'is_kids_friendly' => false],
-            ['number' => 5, 'is_kids_friendly' => true],
-            ['number' => 6, 'is_kids_friendly' => false],
-            ['number' => 7, 'is_kids_friendly' => true],
-            ['number' => 8, 'is_kids_friendly' => false],
-        ];
+        // Fetch lanes from the database
+        $lanes = DB::table('lanes')->get();
 
         return view('reservations.edit', compact('reservation', 'lanes'));
     }
@@ -83,8 +88,19 @@ class ReservationController extends Controller
     {
         // Validate the input
         $request->validate([
-            'lane_number' => 'required|integer',
+            'lane_number' => 'required|integer|exists:lanes,Nummer',
         ]);
+
+        // Find the selected lane
+        $selectedLane = DB::table('lanes')->where('Nummer', $request->input('lane_number'))->first();
+
+        // Check if the reservation includes children
+        $reservation = DB::table('reservations')->where('id', $id)->first();
+        if ($reservation->AantalKinderen > 0 && !$selectedLane->HeeftHek) {
+            return redirect()->back()
+                ->withErrors(['lane_number' => __('Deze baan is ongeschikt voor kinderen omdat deze geen hekjes heeft.')])
+                ->withInput();
+        }
 
         // Update the reservation in the database
         DB::table('reservations')

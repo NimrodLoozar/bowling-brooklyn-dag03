@@ -27,6 +27,12 @@
                 {{ __('Toon reserveringen') }}
             </button>
         </form>
+        <a href="{{ route('reservations.show') }}">
+            <button type="button"
+                class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-800">
+                {{ __('Wijzigen') }}
+            </button>
+        </a>
     </div>
 
     <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
@@ -40,7 +46,6 @@
                     <th class="py-4 px-6">{{ __('Eindtijd') }}</th>
                     <th class="py-4 px-6">{{ __('Aantal volwassenen') }}</th>
                     <th class="py-4 px-6">{{ __('Aantal kinderen') }}</th>
-                    <th class="py-4 px-6">{{ __('Acties') }}</th>
                 </tr>
             </thead>
             <tbody class="text-gray-800 text-sm font-light">
@@ -53,12 +58,6 @@
                         <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->eindtijd }}</td>
                         <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantalvolwassenen }}</td>
                         <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantalkinderen }}</td>
-                        <td class="py-3 px-6 whitespace-nowrap font-medium">
-                            <a href="{{ route('reservations.edit', $reservation->id) }}"
-                                class="text-blue-500 hover:underline">
-                                {{ __('Wijzigen') }}
-                            </a>
-                        </td>
                     </tr>
                 @endforeach
             </tbody>

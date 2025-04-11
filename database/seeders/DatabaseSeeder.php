@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Lane;
 use App\Models\Person;
 use App\Models\Reservation;
 use App\Models\User;
@@ -44,5 +45,14 @@ class DatabaseSeeder extends Seeder
         Reservation::factory()->Reservering4()->create();
         Reservation::factory()->Reservering5()->create();
         Reservation::factory()->Reservering6()->create();
+
+        Lane::factory()->Lane1()->create();
+        Lane::factory()->Lane2()->create();
+        Lane::factory()->Lane3()->create();
+        Lane::factory()->Lane4()->create();
+        Lane::factory()->Lane5()->create();
+        Lane::factory()->Lane6()->create();
+        Lane::factory()->Lane7()->create();
+        Lane::factory()->Lane8()->create();
     }
 }
