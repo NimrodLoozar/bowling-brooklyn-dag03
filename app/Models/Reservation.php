@@ -2,13 +2,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\packageOption;
+use App\Models\PackageOption; // Corrected from lowercase 'packageOption'
 
 class Reservation extends Model
 {
     protected $table = 'Reservations';
-    protected $primaryKey = 'Id'; // Added line
-
+    protected $primaryKey = 'Id';
 
     protected $fillable = [
         'PersoonId',

@@ -1,11 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Reservation; // Changed from Reservering
-use App\Models\PackageOption; // Changed from PakketOptie
+use App\Models\Reservation;
+use App\Models\PackageOption;
 use Illuminate\Http\Request;
 
-class ReservationController extends Controller  // Changed from ReserveringController
+class ReservationController extends Controller
 {
     public function index()
     {
@@ -13,6 +14,10 @@ class ReservationController extends Controller  // Changed from ReserveringContr
         return view('reservations.index', compact('reservations'));
     }
 
+    public function show(Reservation $reservation)
+    {
+        return view('reservations.show', compact('reservation'));
+    }
     public function edit(Reservation $reservation)
     {
         $packageOptions = PackageOption::all();
@@ -21,14 +26,27 @@ class ReservationController extends Controller  // Changed from ReserveringContr
 
     public function update(Request $request, Reservation $reservation)
     {
-        $validated = $request->validate([
-            'PakketOptieId' => 'required|exists:PackageOptions,id'  // Changed table name
+        $request->validate([
+            'PakketOptieId' => 'required' // Removed exists validation
         ]);
 
-        $reservation->update([
-            'PakketOptieId' => $validated['PakketOptieId']
-        ]);
+        $packageOption = PackageOption::find($request->PakketOptieId);
 
-        return redirect()->route('reservations.index')->with('success', 'The package option has been changed');
+        // Check if package exists
+        if (!$packageOption) {
+            return redirect()->back()
+                ->with('error', 'Het geselecteerde optiepakket bestaat niet.');
+        }
+
+        // Prevent selecting 'Avond' if children are present
+        if ($packageOption->Naam === 'Avond' && $reservation->AantalKinderen > 0) {
+            return redirect()->back()
+                ->with('error', 'Het optiepakket Avond is niet bedoeld voor kinderen.');
+        }
+
+        $reservation->update(['PakketOptieId' => $request->PakketOptieId]);
+
+        return redirect()->route('reservations.index')
+            ->with('success', 'Het optiepakket is gewijzigd');
     }
 }

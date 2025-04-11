@@ -2,10 +2,17 @@
     <div class="min-h-screen bg-gray-900 text-white p-6">
         <h1>Edit Package Option for Reservation #{{ $reservation->id }}</h1>
 
-        {{-- Error Message --}}
+        {{-- Error Messages --}}
         @if (session('error'))
             <div class="bg-red-500 text-white p-4 mb-4 rounded">
                 {{ session('error') }}
+            </div>
+        @endif
+
+        {{-- Validation Errors --}}
+        @if ($errors->has('PakketOptieId'))
+            <div class="bg-red-500 text-white p-4 mb-4 rounded">
+                {{ $errors->first('PakketOptieId') }}
             </div>
         @endif
 

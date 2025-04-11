@@ -2,7 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Reservation;
+use App\Models\Reservation;
 
 class PackageOption extends Model
 {
