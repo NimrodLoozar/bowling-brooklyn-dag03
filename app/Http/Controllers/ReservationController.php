@@ -27,26 +27,23 @@ class ReservationController extends Controller
     public function update(Request $request, Reservation $reservation)
     {
         $request->validate([
-            'PakketOptieId' => 'required' // Removed exists validation
+            'PakketOptieId' => 'required|integer|exists:PackageOptions,Id'
+        ], [
+            'PakketOptieId.required' => 'Selecteer een optiepakket',
+            'PakketOptieId.exists' => 'Het geselecteerde pakket bestaat niet',
         ]);
 
-        $packageOption = PackageOption::find($request->PakketOptieId);
+        $packageOption = PackageOption::findOrFail($request->PakketOptieId);
 
-        // Check if package exists
-        if (!$packageOption) {
-            return redirect()->back()
-                ->with('error', 'Het geselecteerde optiepakket bestaat niet.');
-        }
-
-        // Prevent selecting 'Avond' if children are present
         if ($packageOption->Naam === 'Avond' && $reservation->AantalKinderen > 0) {
             return redirect()->back()
-                ->with('error', 'Het optiepakket Avond is niet bedoeld voor kinderen.');
+                ->withInput()
+                ->with('error', 'Het Avondpakket is niet geschikt voor kinderen');
         }
 
         $reservation->update(['PakketOptieId' => $request->PakketOptieId]);
 
         return redirect()->route('reservations.index')
-            ->with('success', 'Het optiepakket is gewijzigd');
+            ->with('success', 'Optiepakket succesvol gewijzigd');
     }
 }

@@ -31,6 +31,9 @@
                             <td class="px-4 py-3">{{ $reservation->Reserveringsnummer }}</td>
                             <td class="px-4 py-3">{{ $reservation->PakketOptieId }}</td>
                             <td class="px-4 py-3">
+                                <a href="{{ route('reservations.show', $reservation) }}" class="text-blue-400 hover:text-blue-300 font-medium mr-2">
+                                    View
+                                </a>
                                 <a href="{{ route('reservations.edit', $reservation) }}" class="text-indigo-400 hover:text-indigo-300 font-medium">
                                     Edit
                                 </a>

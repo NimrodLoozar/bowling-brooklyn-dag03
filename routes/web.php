@@ -24,9 +24,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Martijn
-Route::get('reservations', [App\Http\Controllers\ReservationController::class, 'index'])->name('reservations.index');
-Route::get('reservations/{reservation}/edit', [App\Http\Controllers\ReservationController::class, 'edit'])->name('reservations.edit');
-Route::put('reservations/{reservation}', [App\Http\Controllers\ReservationController::class, 'update'])->name('reservations.update');
-
+Route::get('reservations', [ReservationController::class, 'index'])->name('reservations.index');
+Route::get('reservations/{reservation}', [ReservationController::class, 'show'])->name('reservations.show');
+Route::get('reservations/{reservation}/edit', [ReservationController::class, 'edit'])->name('reservations.edit');
+Route::put('reservations/{reservation}', [ReservationController::class, 'update'])->name('reservations.update');
 
 require __DIR__.'/auth.php';

@@ -9,6 +9,8 @@ class PackageOption extends Model
     protected $table = 'PackageOptions';
     protected $primaryKey = 'Id'; // Added line
 
+    public $timestamps = false;
+    
     protected $fillable = [
         'Naam',
         'Omschrijving',
