@@ -31,13 +31,9 @@
             class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-800">Wijzigen</button>
     </form>
 
-
-
-
     <div class="min-h-screen bg-gray-900 text-white p-6">
         <h1 class="text-2xl font-bold mb-6">Optiepakket wijzigen voor reservering #{{ $reservation->id }}</h1>
 
-        {{-- Error Container --}}
         @if ($errors->any() || session('error'))
             <div class="bg-red-500 text-white p-4 rounded-lg mb-6">
                 @foreach ($errors->all() as $error)
@@ -49,7 +45,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('reservations.update', $reservation) }}" class="max-w-md">
+        <form method="POST" action="{{ route('reservations.update', $reservation->id) }}" class="max-w-md">
             @csrf
             @method('PUT')
 

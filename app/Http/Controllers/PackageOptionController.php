@@ -54,3 +54,6 @@ class PackageOptionController extends Controller
         $packageOption->delete();
         
         return redirect()->route('package_options.index')
+            ->with('success', 'Package option deleted successfully');
+    }
+}

@@ -84,7 +84,10 @@ class ReservationController extends Controller
         // Fetch lanes from the database
         $lanes = DB::table('lanes')->get();
 
-        return view('reservations.edit', compact('reservation', 'lanes'));
+        // Fetch package options from the database
+        $packageOptions = DB::table('PackageOptions')->get();
+
+        return view('reservations.edit', compact('reservation', 'lanes', 'packageOptions'));
     }
 
     public function update(Request $request, $id)
@@ -92,6 +95,12 @@ class ReservationController extends Controller
         // Validate the input
         $request->validate([
             'lane_number' => 'required|integer|exists:lanes,Nummer',
+            'PakketOptieId' => 'required|integer|exists:PackageOptions,Id',
+        ], [
+            'lane_number.required' => 'Selecteer een baan',
+            'lane_number.exists' => 'De geselecteerde baan bestaat niet',
+            'PakketOptieId.required' => 'Selecteer een optiepakket',
+            'PakketOptieId.exists' => 'Het geselecteerde pakket bestaat niet',
         ]);
 
         // Find the selected lane
@@ -105,11 +114,20 @@ class ReservationController extends Controller
                 ->withInput();
         }
 
+        // Validate the package option
+        $packageOption = PackageOption::findOrFail($request->PakketOptieId);
+        if ($packageOption->Naam === 'Avond' && $reservation->AantalKinderen > 0) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Het Avondpakket is niet geschikt voor kinderen');
+        }
+
         // Update the reservation in the database
         DB::table('reservations')
             ->where('id', $id)
             ->update([
                 'BaanId' => $request->input('lane_number'),
+                'PakketOptieId' => $request->input('PakketOptieId'),
             ]);
 
         // Redirect back to the reservations index with a success message
@@ -155,97 +173,37 @@ class ReservationController extends Controller
         // Logic to delete the reservation
         return redirect()->route('reservations.index');
     }
+
+    public function showResults()
+    {
+        return view('results.index');
+    }
+
+    public function handleResultsRequest(Request $request)
+    {
+        $request->validate([
+            'date' => 'required|date'
+        ]);
+
+        $date = $request->input('date');
+
+        // Fetch results for the selected date
+        $results = Result::select('Results.*')
+            ->join('Games', 'Results.SpelId', '=', 'Games.Id')
+            ->join('Reservations', 'Games.ReserveringId', '=', 'Reservations.Id')
+            ->join('People', 'Games.PersoonId', '=', 'People.Id')
+            ->whereDate('Reservations.Datum', $date)
+            ->orderByDesc('Results.Aantalpunten')
+            ->get();
+
+        if ($results->isEmpty()) {
+            return redirect()->route('results.show')
+                ->with('error', 'Er is geen uitslag beschikbaar voor deze geselecteerde datum');
+        }
+
+        return view('results.index', [
+            'results' => $results,
+            'selectedDate' => $date
+        ]);
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // public function index()
-    // {
-    //     $reservations = Reservation::all();
-    //     return view('reservations.index', compact('reservations'));
-    // }
-
-//     public function show(Reservation $reservation)
-//     {
-//         return view('reservations.show', compact('reservation'));
-//     }
-//     public function edit(Reservation $reservation)
-//     {
-//         $packageOptions = PackageOption::all();
-//         return view('reservations.edit', compact('reservation', 'packageOptions'));
-//     }
-
-
-//     public function showResults()
-//     {
-//         return view('results.index');
-//     }
-
-//     public function handleResultsRequest(Request $request)
-//     {
-//         $request->validate([
-//             'date' => 'required|date'
-//         ]);
-
-//         $date = $request->input('date');
-
-//         // Fetch results for the selected date
-//         $results = Result::select('Results.*')
-//             ->join('Games', 'Results.SpelId', '=', 'Games.Id')
-//             ->join('Reservations', 'Games.ReserveringId', '=', 'Reservations.Id')
-//             ->join('People', 'Games.PersoonId', '=', 'People.Id')
-//             ->whereDate('Reservations.Datum', $date)
-//             ->orderByDesc('Results.Aantalpunten')
-//             ->get();
-
-//         if ($results->isEmpty()) {
-//             return redirect()->route('results.show')
-//                 ->with('error', 'Er is geen uitslag beschikbaar voor deze geselecteerde datum');
-//         }
-
-//         return view('results.index', [
-//             'results' => $results,
-//             'selectedDate' => $date
-//         ]);
-//     }
-
-//     public function update(Request $request, Reservation $reservation)
-//     {
-//         $request->validate([
-//             'PakketOptieId' => 'required|integer|exists:PackageOptions,Id'
-//         ], [
-//             'PakketOptieId.required' => 'Selecteer een optiepakket',
-//             'PakketOptieId.exists' => 'Het geselecteerde pakket bestaat niet',
-//         ]);
-
-//         $packageOption = PackageOption::findOrFail($request->PakketOptieId);
-
-//         if ($packageOption->Naam === 'Avond' && $reservation->AantalKinderen > 0) {
-//             return redirect()->back()
-//                 ->withInput()
-//                 ->with('error', 'Het Avondpakket is niet geschikt voor kinderen');
-//         }
-
-//         $reservation->update(['PakketOptieId' => $request->PakketOptieId]);
-
-//         return redirect()->route('reservations.index')
-//             ->with('success', 'Optiepakket succesvol gewijzigd');
-//     }
-// }
