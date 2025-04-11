@@ -24,6 +24,7 @@ class ReservationController extends Controller
         $query = DB::table('reservations')
             ->join('people', 'reservations.PersoonId', '=', 'people.id')
             ->select(
+                'reservations.id', // Include the id column
                 'reservations.datum',
                 'reservations.AantalUren as aantaluren',
                 'reservations.BeginTijd as begintijd',
@@ -61,13 +62,39 @@ class ReservationController extends Controller
 
     public function edit($id)
     {
-        return view('reservations.edit', compact('id'));
+        $reservation = DB::table('reservations')->where('id', $id)->first();
+
+        // Hardcoded lanes
+        $lanes = [
+            ['number' => 1, 'is_kids_friendly' => true],
+            ['number' => 2, 'is_kids_friendly' => false],
+            ['number' => 3, 'is_kids_friendly' => true],
+            ['number' => 4, 'is_kids_friendly' => false],
+            ['number' => 5, 'is_kids_friendly' => true],
+            ['number' => 6, 'is_kids_friendly' => false],
+            ['number' => 7, 'is_kids_friendly' => true],
+            ['number' => 8, 'is_kids_friendly' => false],
+        ];
+
+        return view('reservations.edit', compact('reservation', 'lanes'));
     }
 
     public function update(Request $request, $id)
     {
-        // Logic to update the reservation
-        return redirect()->route('reservations.index');
+        // Validate the input
+        $request->validate([
+            'lane_number' => 'required|integer',
+        ]);
+
+        // Update the reservation in the database
+        DB::table('reservations')
+            ->where('id', $id)
+            ->update([
+                'BaanId' => $request->input('lane_number'),
+            ]);
+
+        // Redirect back to the reservations index with a success message
+        return redirect()->route('reservations.index')->with('success', __('Reservering succesvol bijgewerkt.'));
     }
 
     public function destroy($id)

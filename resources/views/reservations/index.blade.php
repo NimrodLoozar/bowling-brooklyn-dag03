@@ -5,6 +5,12 @@
 
     <h1>{{ __('Reservations') }}</h1>
 
+    @if (session('success'))
+        <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+            {{ session('success') }}
+        </div>
+    @endif
+
     @if ($errors->has('selectedDate'))
         <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
             {{ $errors->first('selectedDate') }}
@@ -34,6 +40,7 @@
                     <th class="py-4 px-6">{{ __('Eindtijd') }}</th>
                     <th class="py-4 px-6">{{ __('Aantal volwassenen') }}</th>
                     <th class="py-4 px-6">{{ __('Aantal kinderen') }}</th>
+                    <th class="py-4 px-6">{{ __('Acties') }}</th>
                 </tr>
             </thead>
             <tbody class="text-gray-800 text-sm font-light">
@@ -46,6 +53,12 @@
                         <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->eindtijd }}</td>
                         <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantalvolwassenen }}</td>
                         <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantalkinderen }}</td>
+                        <td class="py-3 px-6 whitespace-nowrap font-medium">
+                            <a href="{{ route('reservations.edit', $reservation->id) }}"
+                                class="text-blue-500 hover:underline">
+                                {{ __('Wijzigen') }}
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
