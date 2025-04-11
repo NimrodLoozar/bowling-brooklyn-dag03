@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Person;
+use App\Models\Reservation;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,6 +20,29 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password' => bcrypt('password')
         ]);
+
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('admin'),
+        ]);
+
+        Person::factory()->Mazin()->create();
+        Person::factory()->Arjan()->create();
+        Person::factory()->Hans()->create();
+        Person::factory()->Dennis()->create();
+        Person::factory()->Wilco()->create();
+        Person::factory()->Tom()->create();
+        Person::factory()->Andrew()->create();
+        Person::factory()->Julian()->create();
+
+        Reservation::factory()->Reservering1()->create();
+        Reservation::factory()->Reservering2()->create();
+        Reservation::factory()->Reservering3()->create();
+        Reservation::factory()->Reservering4()->create();
+        Reservation::factory()->Reservering5()->create();
+        Reservation::factory()->Reservering6()->create();
     }
 }
