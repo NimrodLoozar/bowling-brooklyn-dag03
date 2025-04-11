@@ -19,6 +19,7 @@
                         :current="request()->routeIs('dashboard')" 
                         wire:navigate
                     >{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="calendar" :href="route('reservations.index')" :current="request()->routeIs('reservations.*')" wire:navigate>{{ __('Reservations') }}</flux:navlist.item>
                     
                     <flux:navlist.item 
                         icon="calendar" 

@@ -6,6 +6,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReservationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,4 +34,4 @@ Route::put('reservations/{reservation}', [ReservationController::class, 'update'
 Route::get('results', [ReservationController::class, 'showResults'])->name('results.show');
 Route::post('results', [ReservationController::class, 'handleResultsRequest'])->name('results.filter');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
