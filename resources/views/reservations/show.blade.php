@@ -38,7 +38,7 @@
         </table>
     </div>
 
-    <div class="min-h-screen bg-gray-900 text-white p-6">
+    {{-- <div class="min-h-screen bg-gray-900 text-white p-6">
         <h1 class="text-3xl font-bold mb-6">Reservation Details #{{ $reservation->id }}</h1>
 
         <div class="bg-gray-800 rounded-lg p-6 shadow-lg">
@@ -82,5 +82,5 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> --}}
 </x-layouts.app>
