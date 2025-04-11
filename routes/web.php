@@ -6,6 +6,7 @@ use App\Livewire\Settings\Profile;
 use App\Http\Controllers\UitslagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\PersoonController;
 
 Route::get('/', function () {
     return view('welcome');
