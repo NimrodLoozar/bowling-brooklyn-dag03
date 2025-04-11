@@ -51,6 +51,17 @@ class PersoonController extends Controller
     {
         $persoon = Persoon::findOrFail($id);
 
+        // Validate the request with custom messages
+        $validatedData = $request->validate([
+            'voornaam' => 'required|string|max:255',
+            'tussenvoegsel' => 'nullable|string|max:255',
+            'achternaam' => 'required|string|max:255',
+            'email' => 'nullable|email|unique:contacts,email,' . $persoon->contact->id,
+            'mobiel' => 'nullable|string|max:20',
+        ], [
+            'email.unique' => 'Het e-mailadres is al in gebruik.',
+        ]);
+
         // Convert checkbox values to boolean
         $data = $request->only([
             'voornaam',
