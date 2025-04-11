@@ -27,40 +27,45 @@
                 {{ __('Toon reserveringen') }}
             </button>
         </form>
-        <a href="{{ route('reservations.show') }}">
-            <button type="button"
-                class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-800">
-                {{ __('Wijzigen') }}
-            </button>
-        </a>
+        @if (!$errors->any())
+            <a href="{{ route('reservations.show') }}">
+                <button type="button"
+                    class="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-800">
+                    {{ __('Wijzigen') }}
+                </button>
+            </a>
+        @endif
     </div>
 
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <table class="min-w-full table-auto">
-            <thead>
-                <tr class="bg-gray-100 text-gray-800 uppercase text-sm font-medium leading-normal">
-                    <th class="py-4 px-6">{{ __('Naam') }}</th>
-                    <th class="py-4 px-6">{{ __('Datum') }}</th>
-                    <th class="py-4 px-6">{{ __('Aantal uren') }}</th>
-                    <th class="py-4 px-6">{{ __('Begintijd') }}</th>
-                    <th class="py-4 px-6">{{ __('Eindtijd') }}</th>
-                    <th class="py-4 px-6">{{ __('Aantal volwassenen') }}</th>
-                    <th class="py-4 px-6">{{ __('Aantal kinderen') }}</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-800 text-sm font-light">
-                @foreach ($reservations as $reservation)
-                    <tr class="border-b border-red-500 text-center hover:bg-gray-50">
-                        <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->roepnaam }}</td>
-                        <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->datum }}</td>
-                        <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantaluren }}</td>
-                        <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->begintijd }}</td>
-                        <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->eindtijd }}</td>
-                        <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantalvolwassenen }}</td>
-                        <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantalkinderen }}</td>
+    @if (!$errors->any())
+        <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
+            <table class="min-w-full table-auto">
+                <thead>
+                    <tr class="bg-gray-100 text-gray-800 uppercase text-sm font-medium leading-normal">
+                        <th class="py-4 px-6">{{ __('Naam') }}</th>
+                        <th class="py-4 px-6">{{ __('Datum') }}</th>
+                        <th class="py-4 px-6">{{ __('Aantal uren') }}</th>
+                        <th class="py-4 px-6">{{ __('Begintijd') }}</th>
+                        <th class="py-4 px-6">{{ __('Eindtijd') }}</th>
+                        <th class="py-4 px-6">{{ __('Aantal volwassenen') }}</th>
+                        <th class="py-4 px-6">{{ __('Aantal kinderen') }}</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody class="text-gray-800 text-sm font-light">
+                    @foreach ($reservations as $reservation)
+                        <tr class="border-b border-red-500 text-center hover:bg-gray-50">
+                            <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->roepnaam }}</td>
+                            <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->datum }}</td>
+                            <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantaluren }}</td>
+                            <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->begintijd }}</td>
+                            <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->eindtijd }}</td>
+                            <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantalvolwassenen }}
+                            </td>
+                            <td class="py-3 px-6 whitespace-nowrap font-medium">{{ $reservation->aantalkinderen }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
 </x-layouts.app>
