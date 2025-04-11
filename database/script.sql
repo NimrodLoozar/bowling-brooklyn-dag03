@@ -1,10 +1,5 @@
--- Drop existing tables
-DROP TABLE IF EXISTS Results;
-DROP TABLE IF EXISTS Games;
-DROP TABLE IF EXISTS Reservations;
-DROP TABLE IF EXISTS People;
-DROP TABLE IF EXISTS PackageOptions;
-
+DROP DATABASE IF EXISTS bowlingbrooklyndag3:
+CREATE DATABASE bowlingbrooklyndag3;
 -- Table: People (was Personen)
 CREATE TABLE People (
     Id INT PRIMARY KEY,
