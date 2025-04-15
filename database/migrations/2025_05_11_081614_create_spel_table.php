@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('spel', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('persoon_id');
-            $table->unsignedBigInteger('reservering_id');
+            $table->foreignId('persoon_id')->constrained('persoon')->onDelete('cascade');
+            $table->foreignId('reservering_id')->constrained('reservations')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('persoon_id')->references('id')->on('persoon')->onDelete('cascade');
-            $table->foreign('reservering_id')->references('id')->on('reservering')->onDelete('cascade');
         });
     }
 

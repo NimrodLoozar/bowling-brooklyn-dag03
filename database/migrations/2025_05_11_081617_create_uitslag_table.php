@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('uitslag', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('spel_id');
+            $table->foreignId('spel_id')->constrained('spel');
             $table->integer('aantalpunten')->nullable();
             $table->timestamps();
-
-            $table->foreign('spel_id')->references('id')->on('spel')->onDelete('cascade');
         });
     }
 

@@ -9,7 +9,7 @@ use App\Models\PackageOption; // Corrected from lowercase 'packageOption'
 class Reservation extends Model
 {
     use HasFactory;
-    protected $table = 'Reservations';
+    protected $table = 'reservations';
     protected $primaryKey = 'Id';
 
     public $timestamps = false;

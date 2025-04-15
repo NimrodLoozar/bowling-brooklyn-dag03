@@ -4,13 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Uitslag;
 use App\Models\Reservering;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UitslagController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Reservering::with('persoon');
+        $query = DB::table('uitslag')
+            ->join('spel', 'uitslag.spel_id', '=', 'spel.id')
+            ->join('reservations', 'spel.reservering_id', '=', 'reservations.id')
+            ->join('people', 'reservations.PersoonId', '=', 'people.id')
+            ->select(
+                'uitslag.id',
+                'uitslag.aantalpunten',
+                'reservations.datum',
+                'reservations.AantalUren as aantaluren',
+                'reservations.BeginTijd as begintijd',
+                'reservations.EindTijd as eindtijd',
+                'reservations.AantalVolwassen as aantalvolwassenen',
+                'reservations.AantalKinderen as aantalkinderen',
+                'people.Roepnaam as roepnaam',
+                'people.Voornaam as voornaam',
+                'people.Achternaam as achternaam',
+                'people.Tussenvoegsel as tussenvoegsel',
+            );
+        // Reservering::with('people');
 
         if ($request->has('datum') && $request->datum) {
             $query->where('datum', $request->datum);
@@ -45,12 +64,28 @@ class UitslagController extends Controller
     public function show($reserveringId)
     {
         try {
-            $uitslagen = Uitslag::whereHas('spel', function ($query) use ($reserveringId) {
-                $query->where('reservering_id', $reserveringId);
-            })
-            ->with('spel.persoon')
-            ->orderBy('aantalpunten', 'desc')
-            ->get();
+            $query = DB::table('uitslag')
+                ->join('spel', 'uitslag.spel_id', '=', 'spel.id')
+                ->join('reservations', 'spel.reservering_id', '=', 'reservations.id')
+                ->join('people', 'reservations.PersoonId', '=', 'people.id')
+                ->select(
+                    'uitslag.id',
+                    'uitslag.aantalpunten',
+                    'reservations.datum',
+                    'reservations.AantalUren as aantaluren',
+                    'reservations.BeginTijd as begintijd',
+                    'reservations.EindTijd as eindtijd',
+                    'reservations.AantalVolwassen as aantalvolwassenen',
+                    'reservations.AantalKinderen as aantalkinderen',
+                    'people.Roepnaam as roepnaam',
+                    'people.Voornaam as voornaam',
+                    'people.Achternaam as achternaam',
+                    'people.Tussenvoegsel as tussenvoegsel',
+                )
+                ->where('reservations.id', $reserveringId)
+                ->orderBy('uitslag.aantalpunten', 'desc');
+
+            $uitslagen = $query->get();
 
             $reservering = Reservering::with('persoon')->findOrFail($reserveringId);
 
