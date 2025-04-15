@@ -52,7 +52,7 @@ class PersoonController extends Controller
         $persoon = Persoon::findOrFail($id);
 
         // Validate the request with custom messages
-        $validatedData = $request->validate([
+        $validatedData = $request->validate([                               
             'voornaam' => 'required|string|max:255',
             'tussenvoegsel' => 'nullable|string|max:255',
             'achternaam' => 'required|string|max:255',
