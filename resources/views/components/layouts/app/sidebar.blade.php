@@ -13,7 +13,33 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item 
+                        icon="home" 
+                        :href="route('dashboard')" 
+                        :current="request()->routeIs('dashboard')" 
+                        wire:navigate
+                    >{{ __('Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.item icon="list-bullet" :href="route('uitslagen.index')" :current="request()->routeIs('uitslagen.index')" wire:navigate>{{ __('Uitslagen') }}</flux:navlist.item>
+                    <flux:navlist.item icon="calendar" :href="route('reservations.index')" :current="request()->routeIs('reservations.*')" wire:navigate>{{ __('Reservations') }}</flux:navlist.item>
+                    <flux:navlist.item 
+                        icon="users" 
+                        :href="route('personen.index')" 
+                        :current="request()->routeIs('personen.*')" 
+                        wire:navigate
+                    >{{ __('Personen') }}</flux:navlist.item>
+                    {{-- <flux:navlist.item 
+                        icon="calendar" 
+                        :href="route('reservations.index')" 
+                        :current="request()->routeIs('reservations.*')" 
+                        wire:navigate
+                    >{{ __('Reserveringen') }}</flux:navlist.item> --}}
+                    
+                    <flux:navlist.item 
+                        icon="chart-bar" 
+                        :href="route('results.show')" 
+                        :current="request()->routeIs('results.*')" 
+                        wire:navigate
+                    >{{ __('Uitslagen') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
