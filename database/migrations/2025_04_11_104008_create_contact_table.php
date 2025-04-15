@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('PersoonId')->constrained('people')->onDelete('cascade');
             $table->string('Mobile', 20)->nullable();
-            $table->string('Email', 255)->nullable();
+            $table->string('Email', 255)->nullable()->unique();
             $table->boolean('IsActive');
             $table->text('Opmerking')->nullable();
             $table->timestamps();

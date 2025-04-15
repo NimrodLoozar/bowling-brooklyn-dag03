@@ -33,12 +33,12 @@
 
         <div class="flex items-center">
             <label for="mobiel" class="w-1/4 text-sm font-medium text-gray-700">Mobiel:</label>
-            <input type="text" id="mobiel" name="mobiel" value="{{ old('mobiel', $persoon->contact->mobiel ?? '') }}" class="border border-gray-300 rounded px-4 py-2 w-3/4">
+            <input type="text" id="mobiel" name="mobiel" value="{{ old('mobiel', $persoon->mobiel ?? '') }}" class="border border-gray-300 rounded px-4 py-2 w-3/4">
         </div>
 
         <div class="flex items-center">
             <label for="email" class="w-1/4 text-sm font-medium text-gray-700">E-mail:</label>
-            <input type="email" id="email" name="email" value="{{ old('email', $persoon->contact->email ?? '') }}" class="border border-gray-300 rounded px-4 py-2 w-3/4">
+            <input type="email" id="email" name="email" value="{{ old('email', $persoon->email ?? '') }}" class="border border-gray-300 rounded px-4 py-2 w-3/4">
         </div>
 
         <div class="flex items-center">
