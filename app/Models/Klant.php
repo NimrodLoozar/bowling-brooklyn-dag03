@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class persoon extends Model
+class klant extends Model
 {
+    protected $table = 'people'; // Correct table name
     protected $fillable = [
         'voornaam',
         'tussenvoegsel',
