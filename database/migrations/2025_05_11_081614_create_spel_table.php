@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('uitslag', function (Blueprint $table) {
+        Schema::create('spel', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('spel_id');
-            $table->integer('aantalpunten')->nullable();
+            $table->foreignId('persoon_id')->constrained('people')->onDelete('cascade');
+            $table->foreignId('reservering_id')->constrained('reservations')->onDelete('cascade');
             $table->timestamps();
-
-            $table->foreign('spel_id')->references('id')->on('spel')->onDelete('cascade');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('uitslag');
+        Schema::dropIfExists('spel');
     }
 };

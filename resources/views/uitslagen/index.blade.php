@@ -26,18 +26,14 @@
                     <th class="border border-gray-300 px-4 py-2 text-left">Eindtijd</th>
                     <th class="border border-gray-300 px-4 py-2 text-left">Aantal Volwassenen</th>
                     <th class="border border-gray-300 px-4 py-2 text-left">Aantal Kinderen</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Score</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Acties</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($reserveringen as $reservering)
                 <tr class="hover:bg-gray-50">
                     <td class="border border-gray-300 px-4 py-2">
-                        @if($reservering->persoon)
-                            {{ $reservering->persoon->voornaam }} {{ $reservering->persoon->achternaam }}
-                        @else
-                            <span class="text-gray-500">Geen persoon gekoppeld</span>
-                        @endif
+                        {{ $reservering->voornaam }} {{ $reservering->tussenvoegsel }} {{ $reservering->achternaam }}
                     </td>
                     <td class="border border-gray-300 px-4 py-2">{{ $reservering->datum }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $reservering->aantaluren }}</td>

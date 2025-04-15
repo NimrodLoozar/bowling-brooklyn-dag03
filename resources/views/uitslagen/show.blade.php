@@ -10,7 +10,7 @@
 
         <div class="mb-4">
             <h2 class="text-lg font-semibold">Reservering Informatie</h2>
-            <p><strong>Klant:</strong> {{ $reservering->persoon->voornaam }} {{ $reservering->persoon->achternaam }}</p>
+            <p><strong>Klant:</strong> {{ $reservering->klant_voornaam }} {{ $reservering->klant_tussenvoegsel }} {{ $reservering->klant_achternaam }}</p>
             <p><strong>Datum:</strong> {{ $reservering->datum }}</p>
             <p><strong>Begintijd:</strong> {{ $reservering->begintijd }}</p>
             <p><strong>Eindtijd:</strong> {{ $reservering->eindtijd }}</p>
@@ -28,11 +28,7 @@
                 @foreach($uitslagen as $uitslag)
                 <tr class="hover:bg-gray-50">
                     <td class="border border-gray-300 px-4 py-2">
-                        @if($uitslag->spel && $uitslag->spel->persoon)
-                            {{ $uitslag->spel->persoon->voornaam }} {{ $uitslag->spel->persoon->achternaam }}
-                        @else
-                            <span class="text-gray-500">Geen persoon gekoppeld</span>
-                        @endif
+                        {{ $uitslag->gast_voornaam }} {{ $uitslag->gast_tussenvoegsel }} {{ $uitslag->gast_achternaam }}
                     </td>
                     <td class="border border-gray-300 px-4 py-2">{{ $uitslag->aantalpunten ?? 'Geen score' }}</td>
                     <td class="border border-gray-300 px-4 py-2">

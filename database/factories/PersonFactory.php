@@ -82,7 +82,7 @@ class PersonFactory extends Factory
 
     public function Tom(): static
     {
-        return $this->state(fn(array $atributes) =>[
+        return $this->state(fn(array $attributes) => [
             'TypePersoon' => 'Gast',
             'Voornaam' => 'Tom',
             'Tussenvoegsel' => null,
@@ -94,7 +94,7 @@ class PersonFactory extends Factory
 
     public function Andrew(): static
     {
-        return $this->state(fn(array $atributes) =>[
+        return $this->state(fn(array $attributes) => [
             'TypePersoon' => 'Gast',
             'Voornaam' => 'Andrew',
             'Tussenvoegsel' => null,
@@ -106,7 +106,7 @@ class PersonFactory extends Factory
 
     public function Julian(): static
     {
-        return $this->state(fn(array $atributes) =>[
+        return $this->state(fn(array $attributes) => [
             'TypePersoon' => 'Gast',
             'Voornaam' => 'Julian',
             'Tussenvoegsel' => null,
