@@ -48,8 +48,8 @@ class DatabaseSeeder extends Seeder
         Lane::factory()->Lane8()->create();
 
             $this->call([
-                PersoonSeeder::class,
-            ReserveringSeeder::class,
+            //     PersoonSeeder::class,
+            // ReserveringSeeder::class,
             SpelSeeder::class,
             UitslagSeeder::class,
                 PackageOptionsTableSeeder::class,

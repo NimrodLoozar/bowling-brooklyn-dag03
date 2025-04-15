@@ -64,7 +64,7 @@ class UitslagController extends Controller
     public function show($reserveringId)
     {
         try {
-            $query = DB::table('uitslag')
+            $uitslagen = DB::table('uitslag')
                 ->join('spel', 'uitslag.spel_id', '=', 'spel.id')
                 ->join('reservations', 'spel.reservering_id', '=', 'reservations.id')
                 ->join('people', 'reservations.PersoonId', '=', 'people.id')
@@ -83,11 +83,22 @@ class UitslagController extends Controller
                     'people.Tussenvoegsel as tussenvoegsel',
                 )
                 ->where('reservations.id', $reserveringId)
-                ->orderBy('uitslag.aantalpunten', 'desc');
+                ->orderBy('uitslag.aantalpunten', 'desc')
+                ->get();
 
-            $uitslagen = $query->get();
-
-            $reservering = Reservering::with('persoon')->findOrFail($reserveringId);
+            $reservering = DB::table('reservations')
+                ->join('people', 'reservations.PersoonId', '=', 'people.id')
+                ->select(
+                    'reservations.*',
+                    'reservations.BeginTijd as begintijd',
+                    'reservations.EindTijd as eindtijd',
+                    'people.Roepnaam as roepnaam',
+                    'people.Voornaam as voornaam',
+                    'people.Achternaam as achternaam',
+                    'people.Tussenvoegsel as tussenvoegsel'
+                )
+                ->where('reservations.id', $reserveringId)
+                ->first();
 
             if ($uitslagen->isEmpty()) {
                 throw new \Exception('Van de geselecteerde reservering zijn geen uitslagen bekend.');

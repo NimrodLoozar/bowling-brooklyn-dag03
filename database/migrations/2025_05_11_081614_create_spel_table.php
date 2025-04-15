@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('spel', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('persoon_id')->constrained('persoon')->onDelete('cascade');
+            $table->foreignId('persoon_id')->constrained('people')->onDelete('cascade');
             $table->foreignId('reservering_id')->constrained('reservations')->onDelete('cascade');
             $table->timestamps();
         });
