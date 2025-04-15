@@ -33,7 +33,11 @@
                 @foreach($reserveringen as $reservering)
                 <tr class="hover:bg-gray-50">
                     <td class="border border-gray-300 px-4 py-2">
-                        {{ $reservering->persoon->voornaam }} {{ $reservering->persoon->achternaam }}
+                        @if($reservering->persoon)
+                            {{ $reservering->persoon->voornaam }} {{ $reservering->persoon->achternaam }}
+                        @else
+                            <span class="text-gray-500">Geen persoon gekoppeld</span>
+                        @endif
                     </td>
                     <td class="border border-gray-300 px-4 py-2">{{ $reservering->datum }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $reservering->aantaluren }}</td>

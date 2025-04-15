@@ -2,37 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    use HasFactory;
-    protected $table = 'People';
-    protected $primaryKey = 'Id';
-
-    public $timestamps = false;
+    protected $table = 'persoon'; // Zorg dat de tabelnaam klopt
 
     protected $fillable = [
-        'TypePersoon',
-        'Voornaam',
-        'Tussenvoegsel',
-        'Achternaam',
-        'Roepnaam',
-        'IsVolwassen'
+        'voornaam',
+        'tussenvoegsel',
+        'achternaam',
+        'is_volwassen',
+        'is_active',
+        'opmerking',
+        'datum_aangemaakt',
+        'datum_gewijzigd',
     ];
 
-    protected $casts = [
-        'IsVolwassen' => 'boolean'
-    ];
-
-    public function games()
+    public function spellen()
     {
-        return $this->hasMany(Game::class, 'PersoonId', 'Id');
-    }
-
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class, 'PersoonId', 'Id');
+        return $this->hasMany(Spel::class, 'persoon_id', 'id'); // Zorg dat de relatie klopt
     }
 }

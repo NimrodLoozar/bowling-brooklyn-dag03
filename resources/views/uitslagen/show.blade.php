@@ -28,7 +28,11 @@
                 @foreach($uitslagen as $uitslag)
                 <tr class="hover:bg-gray-50">
                     <td class="border border-gray-300 px-4 py-2">
-                        {{ $uitslag->spel->persoon->voornaam }} {{ $uitslag->spel->persoon->achternaam }}
+                        @if($uitslag->spel && $uitslag->spel->persoon)
+                            {{ $uitslag->spel->persoon->voornaam }} {{ $uitslag->spel->persoon->achternaam }}
+                        @else
+                            <span class="text-gray-500">Geen persoon gekoppeld</span>
+                        @endif
                     </td>
                     <td class="border border-gray-300 px-4 py-2">{{ $uitslag->aantalpunten ?? 'Geen score' }}</td>
                     <td class="border border-gray-300 px-4 py-2">

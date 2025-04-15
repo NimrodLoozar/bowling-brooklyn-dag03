@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Person; // Update de import naar het juiste model
 
 class Spel extends Model
 {
@@ -15,6 +16,6 @@ class Spel extends Model
 
     public function persoon()
     {
-        return $this->belongsTo(Persoon::class, 'persoon_id');
+        return $this->belongsTo(Person::class, 'persoon_id'); // Gebruik het juiste model
     }
 }
