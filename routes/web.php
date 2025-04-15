@@ -6,7 +6,7 @@ use App\Livewire\Settings\Profile;
 use App\Http\Controllers\UitslagController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\PersoonController;
+use App\Http\Controllers\KlantenController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,8 +39,9 @@ Route::put('reserveringen/{id}', [ReservationController::class, 'update'])->name
 Route::get('results', [ReservationController::class, 'showResults'])->name('results.show');
 Route::post('results', [ReservationController::class, 'handleResultsRequest'])->name('results.filter');
 
-Route::resource('personen', PersoonController::class);
-Route::get('personen/overzicht', [PersoonController::class, 'index'])->name('personen.overzicht');
-Route::get('personen/{id}/edit', [PersoonController::class, 'edit'])->name('personen.edit');
+Route::get('klanten', [KlantenController::class, 'index'])->name('klanten.index');
+Route::get('klanten/{id}/bewerking', [KlantenController::class, 'edit'])->name('klanten.edit');
+Route::put('klanten/{id}', [KlantenController::class, 'update'])->name('klanten.update');
+
 
 require __DIR__ . '/auth.php';

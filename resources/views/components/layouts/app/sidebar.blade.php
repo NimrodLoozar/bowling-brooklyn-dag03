@@ -22,17 +22,11 @@
                     <flux:navlist.item icon="list-bullet" :href="route('uitslagen.index')" :current="request()->routeIs('uitslagen.index')" wire:navigate>{{ __('Uitslagen') }}</flux:navlist.item>
                     <flux:navlist.item icon="calendar" :href="route('reservations.index')" :current="request()->routeIs('reservations.*')" wire:navigate>{{ __('Reservations') }}</flux:navlist.item>
                     <flux:navlist.item 
-                        icon="users" 
-                        :href="route('personen.index')" 
-                        :current="request()->routeIs('personen.*')" 
+                        icon="user" 
+                        :href="route('klanten.index')" 
+                        :current="request()->routeIs('klanten.*')" 
                         wire:navigate
-                    >{{ __('Personen') }}</flux:navlist.item>
-                    {{-- <flux:navlist.item 
-                        icon="calendar" 
-                        :href="route('reservations.index')" 
-                        :current="request()->routeIs('reservations.*')" 
-                        wire:navigate
-                    >{{ __('Reserveringen') }}</flux:navlist.item> --}}
+                    >{{ __('Klanten') }}</flux:navlist.item>
                     
                     <flux:navlist.item 
                         icon="chart-bar" 

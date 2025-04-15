@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+<x-layouts.app>
 <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4">Klant Details</h1>
 
@@ -13,7 +12,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('personen.update', $persoon->id) }}" class="space-y-4">
+    <form method="POST" action="{{ route('klanten.update', $persoon->id) }}" class="mb-4">
         @csrf
         @method('PUT')
 
@@ -52,4 +51,4 @@
         </div>
     </form>
 </div>
-@endsection
+</x-layouts.app>

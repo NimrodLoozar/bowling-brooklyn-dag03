@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('contact', function (Blueprint $table) {
             $table->id();
             $table->foreignId('PersoonId')->constrained('people')->onDelete('cascade');
-            $table->string('mobiel', 20)->nullable();
-            $table->string('email', 255)->nullable();
-            $table->boolean('is_active');
-            $table->text('opmerking')->nullable();
-            $table->dateTime('datum_aangemaakt');
-            $table->dateTime('datum_gewijzigd');
+            $table->string('Mobile', 20)->nullable();
+            $table->string('Email', 255)->nullable();
+            $table->boolean('IsActive');
+            $table->text('Opmerking')->nullable();
             $table->timestamps();
 
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('contact');
     }
 };
